@@ -1,0 +1,185 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/x-icon">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
+              colors: {
+                // primry: '#F05941',
+                primry: '#FFA508',
+                hover: '#FFA512',
+                background: '#CCB5B9',
+                dark: '#353422',
+                
+                white: '#FEFFFB',
+                
+              }
+            }
+          }
+        }
+      </script>
+      
+    <title>HappyTyms</title>
+  
+</head>
+<body>
+  <div class="loading relative">
+    <div class='flex space-x-2 justify-center items-center bg-[#000] h-screen'>
+      <span class='sr-only'>Loading...</span>
+      <div class='mb-2 text-5xl font-bold text-white'>Loading</div>
+      <div class='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+     <div class='h-8 w-8 bg-white rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+     <div class='h-8 w-8 bg-white rounded-full animate-bounce'></div>
+   </div>
+  </div>
+  <div id="main-content hidden" class="antialiased">
+    {% block content %}
+    {% endblock %}
+  </div>
+   
+
+    
+    <script>
+      
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+ 
+  document.addEventListener("DOMContentLoaded", function() {
+  const card = document.getElementById('indicators-carousel');
+  const images = card.querySelectorAll('[data-carousel-item]');
+  const indicators = card.querySelectorAll('[data-carousel-slide-to]');
+  
+  let currentIndex = 0;
+  let intervalId;
+
+  function showImage(index) {
+    images.forEach((image, i) => {
+      if (i === index) {
+        image.classList.remove('hidden');
+        image.classList.add('opacity-100');
+        image.classList.remove('opacity-0');
+      } else {
+        image.classList.add('hidden');
+        image.classList.remove('opacity-100');
+        image.classList.add('opacity-0');
+      }
+    });
+
+    indicators.forEach((indicator, i) => {
+      if (i === index) {
+        indicator.setAttribute('aria-current', 'true');
+      } else {
+        indicator.setAttribute('aria-current', 'false');
+      }
+    });
+
+    currentIndex = index;
+  }
+
+  function showNextImage() {
+    const nextIndex = (currentIndex + 1) % images.length;
+    showImage(nextIndex);
+  }
+
+  function startCarousel() {
+    intervalId = setInterval(showNextImage, 3000); // Change image every 3 seconds
+  }
+
+  function stopCarousel() {
+    clearInterval(intervalId);
+  }
+
+  card.addEventListener('mouseenter', () => {
+    stopCarousel();
+  });
+
+  card.addEventListener('mouseleave', () => {
+    startCarousel();
+  });
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      showImage(index);
+      stopCarousel();
+    });
+  });
+
+   
+// Start carousel
+  startCarousel();
+});
+
+</script>
+
+  <script>
+$(document).ready(function() {
+     
+  $('#contact-form').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        
+        // Serialize form data
+        var formData = $(this).serialize();
+        
+        // AJAX request
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            success: function(response) {
+               
+                if (response.error) {
+                    $('#cform-error').text(response.error );
+                    $('#cform-error').removeClass('hidden');
+                    $('#cform-response').addClass('hidden');
+                } else {
+                    // No error, so form submitted successfully
+                    $('#cform-response').text(response.message );
+                    $('#cform-response').removeClass('hidden');
+                    $('#cform-error').addClass('hidden');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                $('#cform-response').text(xhr.responseText );
+            }
+        });
+    });
+    $(window).on('load', function() {
+      $('.loading').fadeOut('fast', function() {
+            $(this).addClass('hidden');
+        });
+        $('#main-content').removeClass('hidden');
+    });
+    
+   
+    
+   
+ 
+});
+</script>
+
+
+<script src="{% static 'js/admin_custom.js' %}"></script>
+
+</body>
+</html>

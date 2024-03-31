@@ -1,0 +1,95 @@
+<section id="hosted_events" class="relative">
+    <div class="bg-[#000] px-5 pt-30  py-20 sm:p-10 md:p-16">
+        <div class="text-center">
+            <h1 class="text-3xl md:text-5xl sm-p6 text-white "> Our Hosted Events</h1>
+            <p class="text-sm mb-6 md:text-3xl sm:text-3xl text-bold text-white">Explore our diverse range of hosted
+                events</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 gap-10 ">
+            {% for card in cards %}
+
+            <div
+                class=" border-[#000] lg:border-t p-4 bg-white rounded-md  flex flex-col justify-between leading-normal">
+
+                <div class="card">
+
+
+                    <div id="indicators-carousel" class="relative w-full" data-carousel="static">
+                        <!-- Carousel wrapper -->
+                        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                            {% if card.img %}
+                            <div class="duration-700 ease-in-out" data-carousel-item="active">
+
+                                <img src="../{{ card.img.url }}" class="rounded-md w-full mb-3" id="mainImage">
+
+                            </div>
+                            {% endif %}
+                            {% if card.img2 %}
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+
+                                <img src="../{{ card.img2.url }}" class="hiden rounded-md w-full mb-3">
+
+                            </div>
+                            {% endif %}
+                            {% if card.img3 %}
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+
+                                <img src="../{{ card.img3.url }}" class="rounded-md w-full mb-3" id="mainImage">
+
+                            </div>
+                            {% endif %}
+                            {% if card.img4 %}
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+
+                                <img src="../{{ card.img4.url }}" class="hiden rounded-md w-full mb-3">
+
+                            </div>
+                            {% endif %}
+                            {% if card.img5 %}
+                            <div class="hidden duration-700 ease-in-out" data-carousel-item>
+
+                                <img src="../{{ card.img5.url }}" class="hiden rounded-md w-full mb-3">
+
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                    <div class="mb-2 p-4 pt-2">
+
+                        <h3 href="#" class="text-gray-900 font-bold text-lg mb-2">{{ card.title }}
+
+                        </h3>
+                        <ul class="list-disc pl-6 text-[#000] font-semibold text-sm">
+                            {% for item in card.content %}
+                            <li class="mb-2">{{ item }}</li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="flex flex-col gap-2 p-4 pt-2">
+                    <p class="text-right text-black  text-2xl font-bold">
+                        For {{card.price}}/-
+
+                    </p>
+                    <a class="text-center font-bold bg-primry  rounded-md text-white  text-lg px-4 py-2  hover:bg-hover  transition"
+                        href="{% url 'booking' slug=card.slug %}">View Slot</a>
+
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+    </div>
+</section>

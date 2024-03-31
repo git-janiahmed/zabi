@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    boxShadow: {
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    colors: {
+                        // primry: '#F05941',
+                        primry: '#FFA508',
+                        hover: '#FFA512',
+                        background: '#CCB5B9',
+                        dark: '#353422',
+
+                        white: '#FEFFFB',
+
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Search My Event</title>
+</head>
+<body class="bg-gradient-to-r from-green-50/50 via-teal-50 to-green-50/50">
+    <section class="m-6  md:max-w-lg m-auto">
+        <label class="block text-2xl my-4 font-medium mb-1 text-center"> Enter Your Mobile Number To Find Your
+            Order</label>
+
+        <form method="get" id="searchForm" class="my-6 gap-4 m-14">
+
+            {{ search_form.as_p }}
+            <button
+                class="my-2  font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out w-full bg-primry hover:hover text-white focus:outline-none focus-visible:ring-2">Search</button>
+
+        </form>
+    </section>
+
+    {% if booked_events %}
+    <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Name
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Contact
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Booking Date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Event Date
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Amount
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Status
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Group Size
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Slot
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in booked_events %}
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ item.client_name }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ item.phone }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{item.booking_date}}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ item.event_date }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ item.event_price }}
+                    </td>
+                    <td>
+                        {{ item.status }}
+                        <br>
+                       
+                    </td>
+                    <td>
+                        {{ item.num_people }}
+                    </td>
+                    <td>
+                        {{ item.slot }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="mt-8 font-bold text-lg text-center">
+        No data to show
+        <br>
+        <span class="font-semibold">Enter a valid number which is registered with an Event</span>
+    </div>
+
+    {% endif %}
+    </div>
+
+</body>
+</html>

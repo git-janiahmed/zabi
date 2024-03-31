@@ -1,0 +1,118 @@
+<section id="footer" class="bg-gradient-to-r from-green-50/50 via-teal-50 to-green-50/50">
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:py-20 lg:px-8">
+    <div class="max-w-2xl lg:max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl font-extrabold text-gray-900">Visit Our Location</h2>
+
+    </div>
+    <div class="mt-16 lg:mt-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div id="mapContainer" class="rounded-lg overflow-hidden">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3859.5113924087623!2d77.576493!3d14.683648!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTTCsDQxJzAxLjEiTiA3N8KwMzQnMzUuNCJF!5e0!3m2!1sen!2s!4v1710872518909!5m2!1sen!2s"
+            width="100%" height="480" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div>
+          <div class="max-w-full mx-auto rounded-lg overflow-hidden">
+            <div class="px-6 py-4">
+              <h3 class="text-lg font-medium text-gray-900">Our Address</h3>
+              <p class="mt-1 text-[#333]">32-8-3, 2nd floor Opp. Jio Digital Life, Kalyanadurgam Road, Ananthapuram, AP
+              </p>
+            </div>
+            <div class="border-t border-gray-200 px-6 py-4">
+              <h3 class="text-lg font-medium text-gray-900">Hours</h3>
+              <p class="mt-1 text-[#333]">Monday - Sunday: 10am to 10pm</p>
+
+            </div>
+            <div class="border-t border-gray-200 px-6 py-4">
+              <h3 class="text-lg font-medium text-gray-900">Contact</h3>
+              <p class="mt-1 text-[#333]">Email: happytyms0@gamil.com </p>
+              <p class="mt-1 text-[#333]">Phone: +91 8500842125
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Foooter -->
+<section class="body-font relative bg-gray-900 text-gray-400">
+
+  <div class="container mx-auto px-5 py-24 pb-6">
+
+    <div class="mb-12 flex w-full flex-col text-center">
+      <h1 class="title-font mb-4 text-2xl font-medium text-white sm:text-3xl">Contact Us</h1>
+      <p class="mx-auto text-base leading-relaxed lg:w-2/3">Feel free to reach out to us! Whether you have a question,
+        feedback, or a collaboration proposal, we'd love to hear from you.
+      </p>
+    </div>
+    <div id="message-status"></div>
+
+    <div class="mx-auto md:w-2/3 lg:w-1/2">
+
+      <div id="cform-response" class="my-8 p-4 hidden bg-red-100 text-red-600 p-4 rounded-md"></div>
+      <div id="cform-error" class="my-8 hidden bg-green-200 text-green-800 border border-green-400 rounded-md p-4">
+      </div>
+      <form id="contact-form" action="{% url 'homePage' %}" method="post" class="-m-2 flex flex-wrap">
+
+        {% csrf_token %}
+        <div class="w-1/2 p-2">
+          <div class="relative">
+            {{ contact_form.name }}
+            <label for="name"
+              class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:bg-gray-900 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500">Name</label>
+          </div>
+        </div>
+        <div class="w-1/2 p-2">
+          <div class="relative">
+            {{ contact_form.email }}
+            <label for="email"
+              class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:bg-gray-900 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500">Email</label>
+          </div>
+        </div>
+        <div class="mt-4 w-full p-2">
+          <div class="relative">
+            {{ contact_form.message }}
+            <label for="message"
+              class="absolute left-3 -top-6 bg-transparent text-sm leading-7 text-indigo-500 transition-all peer-placeholder-shown:left-3 peer-placeholder-shown:top-2 peer-placeholder-shown:bg-gray-900 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-focus:left-3 peer-focus:-top-6 peer-focus:text-sm peer-focus:text-indigo-500">Message</label>
+          </div>
+        </div>
+        <div class="w-full p-2">
+          <button
+            class="mx-auto flex rounded border-0 bg-primry py-2 px-8 text-lg text-white hover:bg-hover focus:outline-none">Submit</button>
+        </div>
+
+
+        <!-- footer -->
+        <div class="mt-8 w-full border-t border-gray-800 p-2 pt-8 text-center">
+          <nav class="flex justify-center flex-wrap gap-6 text-gray-500 font-medium">
+            <a class="hover:text-primry" href="#hero">Home</a>
+            <a class="hover:text-primry" href="#hosted_events">Services</a>
+            <a class="hover:text-primry" href="{% url 'terms' %}">Terms and Conditions</a>
+
+          </nav>
+
+          <span class="m-2 flex justify-center space-x-5">
+            <a href="https://www.facebook.com/share/Se7g6yT465aRNow8/?mibextid=qi2Omg" target="_blank"
+              rel="noopener noreferrer">
+              <img src="https://img.icons8.com/fluent/30/000000/facebook-new.png" />
+            </a>
+
+            <a href="https://www.instagram.com/happy.tyms" target="_blank" rel="noopener noreferrer">
+              <img src="https://img.icons8.com/fluent/30/000000/instagram-new.png" />
+            </a>
+            <a href="https://www.youtube.com/@happytyms" target="_blank" rel="noopener noreferrer">
+              <img src="https://img.icons8.com/fluent/30/000000/youtube.png" />
+            </a>
+
+          </span>
+          <p class="text-center text-white font-medium">&copy; 2024 <a href="{% url 'homePage' %}"
+              class="underline text-primry">HappyTyms</a> Ltd. All rights reservered.</p>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+</section>

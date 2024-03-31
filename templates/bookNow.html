@@ -1,0 +1,274 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="icon" href="{% static 'img/icon.png' %}" type="image/x-icon">
+    <meta charset="UTF-8">
+
+    <title>Book Now</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    boxShadow: {
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+                    },
+                    colors: {
+                        // primry: '#F05941',
+                        primry: '#FFA508',
+                        hover: '#FFA512',
+                        background: '#CCB5B9',
+                        dark: '#353422',
+
+                        white: '#FEFFFB',
+
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #main{
+    background-image: url('{% static "img/13900607_5320959.jpg" %}');
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading2 fixed inset-0 z-20 backdrop-blur-md">
+        <div class='flex space-x-2 justify-center items-center bg-[rgba(0,0,0,0.3)] h-screen'>
+            <span class='sr-only'>Loading...</span>
+
+
+            <div class='h-8 w-8 bg-[#000] rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+            <div class='h-8 w-8 bg-[#000] rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+            <div class='h-8 w-8 bg-[#000] rounded-full animate-bounce'></div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div id="main" class="relative heroImG bg-cover bg-center bg-no-repeat bg-fixed flex items-center justify-center w-full min-h-screen">
+
+        <section class="antialiased  text-gray-600 p-4">
+
+
+            <div class="relative z-10 max-w-4xl  md:max-w-lg w-full m-auto px-4 sm:px-6 lg:px-8 pb-8" >
+            <div class="my-10 bg-white px-8 pb-6 rounded-b shadow-lg">
+
+                <div class="text-center">
+
+                    <h1 class="text-2xl md:text-3xl text-gray-800 font-semibold py-4 pt-8">Event Booking Form</h1>
+
+                </div>
+
+
+                <!-- Card form -->
+                <form method="post" id="booking-form" action="{% url 'booking' slug=card.slug %}"
+                    onsubmit="return submitForm()">
+                    {% csrf_token %}
+                    <div class="space-y-4">
+                        <!-- Card Number -->
+
+
+                        <div>
+                            <label class="block text-lg md:text-sm font-medium mb-1" for="card-email">Event</label>
+
+                            {{ booking_form.event }}
+                        </div>
+                        <div>
+                            <label class="block text-lg md:text-sm font-medium mb-1" for="card-email">Reservation Date <span
+                                    class="text-gray-600">(YYYY-MM-DD)</span></label>
+
+                            {{ booking_form.event_date }}
+
+                        </div>
+
+                        <div>
+                            <label class="block text-lg md:text-sm font-medium mb-1" for="card-name">Time Selections <span
+                                    class="text-red-500"></span></label>
+                            {{ booking_form.slot }}
+
+                        </div>
+
+                        <div>
+                            <label class="block text-lg md:text-sm font-medium mb-1" for="card-email">Contact Name <span
+                                    class="text-red-500"></span></label>
+                            {{ booking_form.client_name}}
+
+                        </div>
+                        <div>
+                            <label class="block text-lg md:text-sm font-medium mb-1" for="card-email"> <span
+                                    class="text-gray-600 ">Contact Number</span></label>
+                            {{ booking_form.phone }}
+
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:space-x-4">
+                            <div class="sm:flex-1">
+                                <label class="block text-lg md:text-sm font-medium mb-1" for="card-expiry">Group Size </label>
+                                {{ booking_form.num_people }}
+
+                            </div>
+                            <div class="sm:flex-1">
+                                <label class="block text-lg md:text-sm font-medium mb-1" for="card-cvc">Total Price</span></label>
+                                {{ booking_form.event_price }}
+
+                            </div>
+
+                        </div>
+                        <div id="num_people_help_text"></div>
+
+                        <div class="mt-6">
+
+                            <div class="flex items-center h-5 mb-2">
+                                <input id="terms" type="checkbox" value=""
+                                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                                    required />
+
+                                <label for="terms" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I
+                                    agree with the <a href="{% url 'terms' %}"
+                                        class=" hover:underline text-blue-500">terms and conditions</a></label>
+                            </div>
+                            <div class="mb-4">
+
+                                <button
+                                    class="font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out w-full bg-primry hover:bg-hover text-white focus:outline-none focus-visible:ring-2"
+                                    type="submit"> Confirm</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </form>
+
+                <div id="booking-error" class="my-4 p-4 hidden bg-red-100 text-red-600 p-4 rounded-md"></div>
+                <div id="booking-success"
+                    class="my-4 hidden bg-green-200 text-green-800 border border-green-400 rounded-md p-4"> </div>
+                <div class="event-detail">
+
+                </div>
+                <div id="success-payment">
+
+                </div>
+                <div class="flex  my-2">
+
+                    <button id="rzp-button1"
+                        class=" hidden font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out w-full bg-primry hover:hover text-white focus:outline-none focus-visible:ring-2">Pay
+                        with Razorpay</button>
+                  
+
+                </div>
+                <div class="after-pay flex gap-4 my-2">
+
+                    <a id="discover" href="{% url 'homePage' %}"
+                        class=" w-[60%] font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out w-full bg-primry hover:hover text-white focus:outline-none focus-visible:ring-2">Find More Events</a>
+                         <a id="search-btn"
+                            href="{% url 'search' %}"
+                            class=" font-medium text-sm inline-flex items-center justify-center px-3 py-2 border border-primry rounded leading-5 shadow-sm transition duration-150 ease-in-out w-full bg-white text-primry  hover:bg-primry hover:text-white focus:outline-none focus-visible:ring-2"
+                            type="submit">Track My Booked Events</a>
+
+                  
+
+                </div>
+            </div>
+    </div>
+
+    </section>
+</div>
+   
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="{%static 'js/admin_custom.js' %}"></script>
+    <script src="{% static 'js/booked_event.js' %}"></script>
+    <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
+   
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const card = document.getElementById('indicators-carousel');
+            const images = card.querySelectorAll('[data-carousel-item]');
+            const indicators = card.querySelectorAll('[data-carousel-slide-to]');
+
+            let currentIndex = 0;
+            let intervalId;
+
+            function showImage(index) {
+                images.forEach((image, i) => {
+                    if (i === index) {
+                        image.classList.remove('hidden');
+                        image.classList.add('opacity-100');
+                        image.classList.remove('opacity-0');
+                    } else {
+                        image.classList.add('hidden');
+                        image.classList.remove('opacity-100');
+                        image.classList.add('opacity-0');
+                    }
+                });
+
+                indicators.forEach((indicator, i) => {
+                    if (i === index) {
+                        indicator.setAttribute('aria-current', 'true');
+                    } else {
+                        indicator.setAttribute('aria-current', 'false');
+                    }
+                });
+
+                currentIndex = index;
+            }
+
+            function showNextImage() {
+                const nextIndex = (currentIndex + 1) % images.length;
+                showImage(nextIndex);
+            }
+
+            function startCarousel() {
+                intervalId = setInterval(showNextImage, 3000); // Change image every 3 seconds
+            }
+
+            function stopCarousel() {
+                clearInterval(intervalId);
+            }
+
+            card.addEventListener('mouseenter', () => {
+                stopCarousel();
+            });
+
+            card.addEventListener('mouseleave', () => {
+                startCarousel();
+            });
+
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showImage(index);
+                    stopCarousel();
+                });
+            });
+
+            startCarousel();
+        });
+    </script>
+
+
+</body>
+
+</html>
