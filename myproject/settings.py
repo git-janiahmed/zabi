@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rangefilter",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -107,7 +108,7 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-# SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # Optionally, set CSRF cookie secure flag to True if your site is served over HTTPS
 # CSRF_COOKIE_SECURE = False
