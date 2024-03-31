@@ -12,16 +12,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "k**pryirge11f_13q=zty7yxstp5$zgo*=3k@u$l1xh6-pnvdf"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ["happytyms.in", "www.happytyms.in", "89.116.34.32"]
 
-ALLOWED_HOSTS = [
-    "89.116.34.32",
-    "happytyms.in",
-]
+ALLOWED_HOSTS = ["*"]
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 # SECURE_SSL_REDIRECT = True
 # SECURE_SSL_CERTIFICATE = "/ssl/certificate.crt"
 # SECURE_SSL_KEY = "/ssl/private.key"
@@ -114,7 +111,7 @@ USE_TZ = True
 SESSION_COOKIE_SECURE = True
 
 # Optionally, set CSRF cookie secure flag to True if your site is served over HTTPS
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = False
 
 RAZORPAY_API_KEY = "rzp_test_rjozYzFtHN9E9n"
 RAZORPAY_API_SECRET = "8Arwk9pGfxy70LNS1SRhjbVr"
